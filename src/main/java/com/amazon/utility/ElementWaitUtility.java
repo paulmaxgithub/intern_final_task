@@ -1,4 +1,4 @@
-package com.amazon.utils;
+package com.amazon.utility;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class WaitUtils {
+public class ElementWaitUtility {
 
     private static final Duration TIMEOUT_MIN = Duration.ofMillis(2000);
 
@@ -22,13 +22,6 @@ public class WaitUtils {
     public static WebElement getClickableElement(WebDriver driver, By locator) {
         return new WebDriverWait(driver, TIMEOUT_MIN)
                 .until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-    /// Waiting for the Text Field to be Clickable & Empty
-    public static WebElement getClickableAndEmptyField(WebDriver driver, By locator) {
-            WebElement element = getClickableElement(driver, locator);
-            element.clear();
-            return element;
     }
 }
 

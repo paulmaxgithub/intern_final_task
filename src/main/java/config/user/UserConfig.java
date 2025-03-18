@@ -1,20 +1,16 @@
-package config;
+package config.user;
 
-class EnvConfig {
+public class UserConfig {
 
-    private String appName;
+    /// PRIVATE
     private String baseUrl;
-    private String signInURL;
     private String userEmail;
     private String password;
     private String username;
 
-    public String getAppName() { return appName; }
+    /// GETTER
     public String getBaseUrl() { return baseUrl; }
-    public String getSignInURL() { return signInURL; }
     public String getUserEmail() { return userEmail; }
     public String getPassword() { return password; }
     public String getUsername() { return username; }
-
-
 }

@@ -1,8 +1,8 @@
 package com.amazon.pages;
 
 import com.amazon.base.BasePage;
-import com.amazon.utils.WaitUtils;
-import config.ConfigReader;
+import com.amazon.utility.ElementWaitUtility;
+import config.user.UserConfigService;
 import org.openqa.selenium.By;
 
 public class SignInPage extends BasePage {
@@ -17,25 +17,27 @@ public class SignInPage extends BasePage {
 
     /// Method to enter valid email
     public void enterValidEmail() {
-        var emailField = WaitUtils.getClickableAndEmptyField(driver, emailFieldLocator);
-        var userEmail = ConfigReader.getUserEmailFromConfigJSON();
+        var userEmail = UserConfigService.getUserEmail();
+        var emailField = ElementWaitUtility.getClickableElement(driver, emailFieldLocator);
+        emailField.clear();
         emailField.sendKeys(userEmail);
     }
 
     ///
     public void enterValidPassword() {
-        var passwordField = WaitUtils.getClickableAndEmptyField(driver, passwordFieldLocator);
-        var validPassword = ConfigReader.getUserPasswordFromConfigJSON();
+        var validPassword = UserConfigService.getUserPassword();
+        var passwordField = ElementWaitUtility.getClickableElement(driver, passwordFieldLocator);
+        passwordField.clear();
         passwordField.sendKeys(validPassword);
     }
 
     ///
     public void clickButtonToSubmit() {
         if (currentButtonState == ButtonType.CONTINUE) {
-            WaitUtils.getClickableElement(driver, continueButtonLocator).click();
+            ElementWaitUtility.getClickableElement(driver, continueButtonLocator).click();
             currentButtonState = ButtonType.SIGH_IN;
         } else if (currentButtonState == ButtonType.SIGH_IN) {
-            WaitUtils.getClickableElement(driver, signInButtonLocator).click();
+            ElementWaitUtility.getClickableElement(driver, signInButtonLocator).click();
         } else {
             //TODO: Provide Unexpected Behaviour ⚠️
         }

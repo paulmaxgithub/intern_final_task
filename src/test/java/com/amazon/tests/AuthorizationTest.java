@@ -1,9 +1,9 @@
 package com.amazon.tests;
 
 import com.amazon.base.BaseTest;
-import config.ConfigReader;
-import org.junit.jupiter.api.Assertions;
+import config.user.UserConfigService;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthorizationTest extends BaseTest {
 
@@ -11,10 +11,10 @@ public class AuthorizationTest extends BaseTest {
     public void test_SuccessfulAuthorization() {
 
         //STEP 1
-        homePage.hoverOverAccountAndLists();
+        homePage.getAccountListInHeader();
 
         //STEP 2
-        var signInPage = homePage.clickSignInButton();
+        var signInPage = homePage.clickSignInButtonInAccountList();
 
         //STEP 3
         signInPage.enterValidEmail();
@@ -24,9 +24,9 @@ public class AuthorizationTest extends BaseTest {
         signInPage.enterValidPassword();
         signInPage.clickButtonToSubmit();
 
-        // Verifying
-        var actualValue = homePage.getGreetingsTextForAuthenticatedUser();
-        var expectedValue = ConfigReader.getUserNameFromConfigJSON();
-        Assertions.assertTrue(actualValue.contains(expectedValue), "Greetings does NOT contain username ⚠️");
+        // VERIFYING
+        var actualValue = homePage.getAccountListText();
+        var expectedValue = UserConfigService.getUserName();
+        assertTrue(actualValue.contains(expectedValue), "Greetings does NOT contain username ⚠️");
     }
 }
