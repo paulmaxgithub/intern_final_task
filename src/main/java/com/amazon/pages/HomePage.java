@@ -1,9 +1,8 @@
 package com.amazon.pages;
 
 import com.amazon.base.BasePage;
-import com.amazon.utility.ElementWaitUtility;
+import com.amazon.utility.ElementFinder;
 
-import com.amazon.utility.SessionStorage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -29,7 +28,7 @@ public class HomePage extends BasePage {
     /// so the page can be reloaded ⚠️
     public WebElement getAccountListInHeader() {
         try {
-            var element = ElementWaitUtility.getVisibleElement(driver, accountAndListLocator);
+            var element = ElementFinder.getVisibleElement(driver, accountAndListLocator);
             new Actions(driver).moveToElement(element).perform();
             return element;
         } catch (NoSuchElementException | TimeoutException e) {
@@ -42,7 +41,7 @@ public class HomePage extends BasePage {
     /// Method to click on the 'Sign-In' button
     public SignInPage clickSignInButtonInAccountList() {
         if (getAccountListInHeader().isDisplayed()) {
-            ElementWaitUtility.getClickableElement(driver, signInButtonLocator).click();
+            ElementFinder.getClickableElement(driver, signInButtonLocator).click();
             return new SignInPage();
         } else {
             return null;                                            //TODO: Provide a notification (e.g. Reporters) ⚠️
@@ -51,28 +50,25 @@ public class HomePage extends BasePage {
 
     /// Get string from text to check username in this text or get text with non-auth name
     public String getAccountListText() {
-        var element = ElementWaitUtility.getVisibleElement(driver, greetingsTextLabelLocator);
-
-        SessionStorage.captureAuthorizedSession(driver);            //TODO: Provide a trigger to call this method in another place
-
+        var element = ElementFinder.getVisibleElement(driver, greetingsTextLabelLocator);
         return element.getText();
     }
 
     // TEST CASE #2 ⚙️
 
     public void enterValueInSearchField() {
-        var element = ElementWaitUtility.getVisibleElement(driver, searchInputFieldLocator);
+        var element = ElementFinder.getVisibleElement(driver, searchInputFieldLocator);
         element.clear();
         element.sendKeys("iPhone");
     }
 
     public void clickSearchButton() {
-        var element = ElementWaitUtility.getClickableElement(driver, searchInputButtonLocator);
+        var element = ElementFinder.getClickableElement(driver, searchInputButtonLocator);
         element.click();
     }
 
     public String getSearchedProductTitle() {
-        var element = ElementWaitUtility.getVisibleElement(driver, firstFoundElementLocator);
+        var element = ElementFinder.getVisibleElement(driver, firstFoundElementLocator);
         return element.getText();
     }
 }

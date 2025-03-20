@@ -8,9 +8,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ElementWaitUtility {
+public class ElementFinder {
+
+    /// ELEMENT LOCATORS
+    private final static By greetingsTextLabelLocator  = By.cssSelector("#nav-link-accountList-nav-line-1");
 
     private static final Duration TIMEOUT_MIN = Duration.ofMillis(2000);
+
+    /// PUBLIC
+    public static WebElement getGreetingsTextLabel(WebDriver driver) {
+        return getVisibleElement(driver, greetingsTextLabelLocator);
+    }
 
     ///
     public static WebElement getVisibleElement(WebDriver driver, By locator) {
