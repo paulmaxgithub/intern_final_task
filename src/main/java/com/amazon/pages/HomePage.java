@@ -3,6 +3,7 @@ package com.amazon.pages;
 import com.amazon.base.BasePage;
 import com.amazon.utility.ElementWaitUtility;
 
+import com.amazon.utility.SessionStorage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -20,6 +21,8 @@ public class HomePage extends BasePage {
     private final By searchInputButtonLocator   = By.cssSelector("input[type='submit']");
     private final By firstFoundElementLocator   = By.xpath("(//*[@role=\"listitem\"]//h2//span[contains(text(), 'iPhone')])[1]");
 
+
+    // TEST CASE #1 ⚙️
 
     /// Method to hover over 'Account & Lists' in header.
     /// HomePage can display advertising info & not contain a login menu,
@@ -49,10 +52,14 @@ public class HomePage extends BasePage {
     /// Get string from text to check username in this text or get text with non-auth name
     public String getAccountListText() {
         var element = ElementWaitUtility.getVisibleElement(driver, greetingsTextLabelLocator);
+
+        SessionStorage.captureAuthorizedSession(driver);            //TODO: Provide a trigger to call this method in another place
+
         return element.getText();
     }
 
-    /// TEST CASE #2
+    // TEST CASE #2 ⚙️
+
     public void enterValueInSearchField() {
         var element = ElementWaitUtility.getVisibleElement(driver, searchInputFieldLocator);
         element.clear();

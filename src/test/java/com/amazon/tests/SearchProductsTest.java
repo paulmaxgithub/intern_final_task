@@ -15,7 +15,7 @@ public class SearchProductsTest extends BaseTest {
     public void test_SearchedProductIsFound(String value) {
 
         // PRECONDITION
-        //runSessionAsAuthorizedUser(); //TODO: Resolve Essue with Tokens ⚠️
+        runSessionAsAuthorizedUser();
 
         var actualResult = homePage.getAccountListText();
         var expectedResult = UserConfigService.getUserName();
@@ -27,6 +27,7 @@ public class SearchProductsTest extends BaseTest {
         //STEP 2
         homePage.clickSearchButton();
 
+        ///TODO: Test must check a list of products, which were requested ⚠️
         // VERIFYING
         var actualElementTitle = homePage.getSearchedProductTitle();
         assertTrue(actualElementTitle.contains(value), "Searched products (iPhone) are NOT on the screen ❌");
