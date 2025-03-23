@@ -1,6 +1,6 @@
 package config.AWS.services;
 
-import config.AWS.manager.AWSCookieFileManager;
+import config.AWS.manager.AWSFileHandler;
 import config.AWS.model.CookieModel;
 import org.openqa.selenium.Cookie;
 
@@ -13,7 +13,7 @@ public class CookieSetterService {
     /// Update the JSON file
     public static void updateAWSCookieList(List<Cookie> cookies) throws IOException {
         List<CookieModel> cookieModels = convertToCookieModels(cookies);
-        AWSCookieFileManager.updateAWSTokensFile(cookieModels);
+        AWSFileHandler.updateAWSTokensFile(cookieModels);
     }
 
     // PRIVATE ⚙️

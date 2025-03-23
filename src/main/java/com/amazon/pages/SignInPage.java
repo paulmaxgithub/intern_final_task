@@ -18,7 +18,7 @@ public class SignInPage extends BasePage {
     private final By signInButtonLocator    = By.cssSelector("#signInSubmit");
 
     /// Method to enter valid email
-    public void enterValidEmail() {
+    public void enterDefaultEmail() {
         var userEmail = UserConfigService.getUserEmail();
         var emailField = getClickableElement(driver, emailFieldLocator);
         emailField.clear();
@@ -26,7 +26,7 @@ public class SignInPage extends BasePage {
     }
 
     ///
-    public void enterValidPassword() {
+    public void enterDefaultPassword() {
         var validPassword = UserConfigService.getUserPassword();
         var passwordField = getClickableElement(driver, passwordFieldLocator);
         passwordField.clear();
@@ -34,7 +34,7 @@ public class SignInPage extends BasePage {
     }
 
     ///TODO: Refactor code (method) ⚠️
-    public void clickButtonToSubmit() {
+    public void handleButtonClickBasedOnState() {
         if (currentButtonState == ButtonType.CONTINUE) {
             getClickableElement(driver, continueButtonLocator).click();
             currentButtonState = ButtonType.SIGH_IN;

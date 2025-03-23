@@ -22,14 +22,14 @@ public class SearchProductsTest extends BaseTest {
         assertTrue(actualResult.contains(expectedResult));
 
         //STEP 1
-        homePage.enterValueInSearchField();
+        homePage.enterValueInSearchField(value);
 
         //STEP 2
         homePage.clickSearchButton();
 
         ///TODO: Test must check a list of products, which were requested ⚠️
         // VERIFYING
-        var actualElementTitle = homePage.getSearchedProductTitle();
+        var actualElementTitle = homePage.getFirstSearchedProductTitle();
         assertTrue(actualElementTitle.contains(value), "Searched products (iPhone) are NOT on the screen ❌");
     }
 }

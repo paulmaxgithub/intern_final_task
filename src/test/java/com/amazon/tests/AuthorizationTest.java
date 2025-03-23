@@ -17,12 +17,12 @@ public class AuthorizationTest extends BaseTest {
         var signInPage = homePage.clickSignInButtonInAccountList();
 
         //STEP 3
-        signInPage.enterValidEmail();
-        signInPage.clickButtonToSubmit();
+        signInPage.enterDefaultEmail();
+        signInPage.handleButtonClickBasedOnState();
 
         //STEP 4
-        signInPage.enterValidPassword();
-        signInPage.clickButtonToSubmit();
+        signInPage.enterDefaultPassword();
+        signInPage.handleButtonClickBasedOnState();
 
         // VERIFYING
         var actualValue = homePage.getAccountListText();

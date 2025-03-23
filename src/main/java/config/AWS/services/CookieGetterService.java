@@ -1,6 +1,6 @@
 package config.AWS.services;
 
-import config.AWS.manager.AWSCookieFileManager;
+import config.AWS.manager.AWSFileHandler;
 import config.AWS.model.CookieModel;
 import org.openqa.selenium.Cookie;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class CookieGetterService {
     /// Generic method to safely retrieve config values
     private static List<Cookie> getCookieList(I_CookieDataGetter getter) {
         try {
-            return getter.get(AWSCookieFileManager.readAWSTokensFile());
+            return getter.get(AWSFileHandler.readAWSTokensFile());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

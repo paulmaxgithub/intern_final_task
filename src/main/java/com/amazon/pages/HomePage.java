@@ -56,10 +56,10 @@ public class HomePage extends BasePage {
 
     // TEST CASE #2 ⚙️
 
-    public void enterValueInSearchField() {
+    public void enterValueInSearchField(String value) {
         var element = ElementFinder.getVisibleElement(driver, searchInputFieldLocator);
         element.clear();
-        element.sendKeys("iPhone");
+        element.sendKeys(value);
     }
 
     public void clickSearchButton() {
@@ -67,7 +67,7 @@ public class HomePage extends BasePage {
         element.click();
     }
 
-    public String getSearchedProductTitle() {
+    public String getFirstSearchedProductTitle() {
         var element = ElementFinder.getVisibleElement(driver, firstFoundElementLocator);
         return element.getText();
     }
