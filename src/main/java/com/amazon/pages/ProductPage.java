@@ -13,6 +13,10 @@ public class ProductPage extends BasePage {
     private final By greenMarkIconLocator       = By.cssSelector("#NATC_SMART_WAGON_CONF_MSG_SUCCESS > div");
     private final By addedToCartTextLocator     = By.xpath("//*[@id='NATC_SMART_WAGON_CONF_MSG_SUCCESS']/h1");
     private final By deleteProductButtonLocator = By.cssSelector(".sc-quantity-stepper button:nth-child(2)");
+    private final By cartIconLocator            = By.cssSelector("#nav-cart-count-container");
+    private final By productNameLocator         = By.xpath("//h1//span[@id='productTitle']");
+
+    private String selectedProductName;
 
     ///
     public void eraseShoppingCartIfNeeded() {
@@ -24,10 +28,10 @@ public class ProductPage extends BasePage {
         }
     }
 
-    ///
+    /// Store selected product name which can bew used in future tests
     public void clickAddToCartButton() {
-        var button = ElementFinder.getClickableElement(driver, addToCartButtonLocator);
-        button.click();
+        selectedProductName = ElementFinder.getVisibleElement(driver, productNameLocator).getText();
+        ElementFinder.getClickableElement(driver, addToCartButtonLocator).click();
     }
 
     public boolean greenMarkIconIsDisplayed() {
@@ -42,5 +46,11 @@ public class ProductPage extends BasePage {
     public int getCartProductCount() {
         var counter = ElementFinder.getVisibleElement(driver, cartProductCountLocator);
         return Integer.parseInt(counter.getText());
+    }
+
+    // TEST CASE #4
+    public CartPage clickCartIconAndMoveToCartPage() {
+        ElementFinder.getClickableElement(driver, cartIconLocator).click();
+        return new CartPage(selectedProductName);
     }
 }
