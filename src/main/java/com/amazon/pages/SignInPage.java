@@ -12,10 +12,12 @@ public class SignInPage extends BasePage {
     private enum ButtonType { CONTINUE, SIGH_IN }
     private ButtonType currentButtonState = ButtonType.CONTINUE;
 
+    // ELEMENT LOCATORS ⚙️
     private final By emailFieldLocator      = By.cssSelector("#ap_email");
     private final By continueButtonLocator  = By.cssSelector("#continue");
     private final By passwordFieldLocator   = By.cssSelector("#ap_password");
     private final By signInButtonLocator    = By.cssSelector("#signInSubmit");
+    private final By accountListLocator     = By.cssSelector("#nav-link-accountList-nav-line-1");
 
     /// Method to enter valid email
     public void enterDefaultEmail() {
@@ -40,7 +42,7 @@ public class SignInPage extends BasePage {
             currentButtonState = ButtonType.SIGH_IN;
         } else if (currentButtonState == ButtonType.SIGH_IN) {
             getClickableElement(driver, signInButtonLocator).click();
-            getInstance(driver).validateRegistration();
+            getInstance(driver).validateRegistration(accountListLocator);
         } else {
             //TODO: Provide Unexpected Behaviour ⚠️
         }

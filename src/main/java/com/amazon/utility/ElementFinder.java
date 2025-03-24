@@ -10,15 +10,9 @@ import java.time.Duration;
 
 public class ElementFinder {
 
-    /// ELEMENT LOCATORS
-    private final static By greetingsTextLabelLocator  = By.cssSelector("#nav-link-accountList-nav-line-1");
+    private static final Duration TIMEOUT_MIN = Duration.ofMillis(3000);
 
-    private static final Duration TIMEOUT_MIN = Duration.ofMillis(2000);
-
-    /// PUBLIC
-    public static WebElement getGreetingsTextLabel(WebDriver driver) {
-        return getVisibleElement(driver, greetingsTextLabelLocator);
-    }
+    // PUBLIC ⚙️
 
     ///
     public static WebElement getVisibleElement(WebDriver driver, By locator) {
@@ -28,8 +22,15 @@ public class ElementFinder {
 
     ///
     public static WebElement getClickableElement(WebDriver driver, By locator) {
-        return new WebDriverWait(driver, TIMEOUT_MIN)
-                .until(ExpectedConditions.elementToBeClickable(locator));
+        WebDriverWait wait = new WebDriverWait(driver, TIMEOUT_MIN);
+        var element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        return element;
+    }
+
+    ///
+    public static void waitForPageToLoad(WebDriver driver, By locator) {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 }
-

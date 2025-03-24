@@ -12,14 +12,13 @@ import java.util.NoSuchElementException;
 
 public class HomePage extends BasePage {
 
+    // ELEMENT LOCATORS ⚙️
     private final By accountAndListLocator      = By.cssSelector("#nav-link-accountList");
     private final By signInButtonLocator        = By.cssSelector("#nav-flyout-ya-signin span");
     private final By greetingsTextLabelLocator  = By.cssSelector("#nav-link-accountList-nav-line-1");
 
-    private final By searchInputFieldLocator    = By.cssSelector("input[type='text']");
-    private final By searchInputButtonLocator   = By.cssSelector("input[type='submit']");
-    private final By firstFoundElementLocator   = By.xpath("(//*[@role=\"listitem\"]//h2//span[contains(text(), 'iPhone')])[1]");
-
+    private final By searchInputFieldLocator        = By.cssSelector("input[type='text']");
+    private final By searchInputButtonLocator       = By.cssSelector("input[type='submit']");
 
     // TEST CASE #1 ⚙️
 
@@ -65,10 +64,5 @@ public class HomePage extends BasePage {
     public void clickSearchButton() {
         var element = ElementFinder.getClickableElement(driver, searchInputButtonLocator);
         element.click();
-    }
-
-    public String getFirstSearchedProductTitle() {
-        var element = ElementFinder.getVisibleElement(driver, firstFoundElementLocator);
-        return element.getText();
     }
 }

@@ -1,6 +1,7 @@
 package com.amazon.base;
 
 import com.amazon.pages.HomePage;
+import com.amazon.pages.ProductResultsPage;
 import com.amazon.utility.SessionStorage;
 import config.user.UserConfigService;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -17,6 +18,8 @@ public class BaseTest {
     protected HomePage homePage;
 
     private static String AMAZON_URL;
+
+    protected boolean isAuthRequired = false;
 
     @BeforeAll
     protected static void setUp() {
@@ -35,6 +38,10 @@ public class BaseTest {
         basePage = new BasePage();
         basePage.setDriver(driver);
         homePage = new HomePage();
+
+        if (isAuthRequired) {
+            runSessionAsAuthorizedUser();
+        }
     }
 
     @AfterAll
@@ -42,13 +49,24 @@ public class BaseTest {
         driver.quit();
     }
 
-    /// SETUP
+    // SETUP
+
+    ///
     private static void setAMAZON_URL() {
         AMAZON_URL = UserConfigService.getBaseURL();
     }
 
+    // PRECONDITION
+
     /// Provide tests as authorized user using stored session token
-    protected void runSessionAsAuthorizedUser() {
+    private void runSessionAsAuthorizedUser() {
         SessionStorage.applyAuthorizedSession(driver);
+    }
+
+    ///
+    protected ProductResultsPage searchForProduct(String value) {
+        homePage.enterValueInSearchField(value);
+        homePage.clickSearchButton();
+        return new ProductResultsPage();
     }
 }

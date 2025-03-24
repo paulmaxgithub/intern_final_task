@@ -2,6 +2,7 @@ package com.amazon.utility;
 
 import com.amazon.base.BasePage;
 import config.user.ConfigFileManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class AuthSessionManager extends BasePage {
@@ -26,9 +27,9 @@ public class AuthSessionManager extends BasePage {
     // PUBLIC ⚙️
 
     /// COMMENT ⚠️
-    public void validateRegistration() {
+    public void validateRegistration(By locator) {
         try {
-            var text = ElementFinder.getGreetingsTextLabel(driver).getText();
+            var text = ElementFinder.getVisibleElement(driver, locator).getText();
             var username = ConfigFileManager.loadUserConfig().getUsername();
             if (text.contains(username)) {
                 SessionStorage.captureAuthorizedSession(driver);
