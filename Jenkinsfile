@@ -1,38 +1,47 @@
 pipeline {
-    agent any  // Runs on any available agent
-
-    environment {
-        HEADLESS_MODE = 'true'  // Set to 'true' for headless mode in Jenkins
-    }
-
+    agent any
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from your GitHub repository
                 git branch: 'DEV',
-                    credentialsId: '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',  // Ensure credentials are securely stored in Jenkins
-                    url: 'https://github.com/paulmaxgithub/intern_final_task.git'  // Your repository URL
+                    credentialsId: 'github-token',
+                    url: 'https://github.com/paulmaxgithub/intern_final_task.git'
             }
         }
 
         stage('Build') {
             steps {
-                // Build the project without running tests
-                sh 'mvn clean package -DskipTests'  // Package the project and skip tests
+                sh 'mvn clean package -DskipTests'
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Authorization Test') {
             steps {
-                // Run the tests
-                sh 'mvn test'  // Run the tests (ensure this matches your test framework)
+                sh 'mvn test -Dtest=AuthorizationTest'
             }
+        }
 
-            post {
-                always {
-                    // Collect test reports
-                    junit '**/target/surefire-reports/*.xml'  // Collect JUnit test reports
-                }
+        stage('Run Search Products Test') {
+            steps {
+                sh 'mvn test -Dtest=SearchProductsTest'
+            }
+        }
+
+        stage('Run Add Product to Cart Test') {
+            steps {
+                sh 'mvn test -Dtest=AddProductToCartTest'
+            }
+        }
+
+        stage('Run Product in Cart Test') {
+            steps {
+                sh 'mvn test -Dtest=ProductInCartTest'
+            }
+        }
+
+        post {
+            always {
+                junit '**/target/surefire-reports/*.xml'
             }
         }
     }
