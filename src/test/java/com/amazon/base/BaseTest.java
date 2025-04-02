@@ -4,7 +4,6 @@ import com.amazon.pages.HomePage;
 import com.amazon.pages.ProductResultsPage;
 import com.amazon.utility.SessionStorage;
 import config.user.UserConfigService;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,8 +23,6 @@ public class BaseTest {
     @BeforeAll
     protected static void setUp() {
         setAMAZON_URL();
-
-        WebDriverManager.chromedriver().setup();
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
